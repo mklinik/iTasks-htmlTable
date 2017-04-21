@@ -5,6 +5,11 @@ import Text.HTML
 
 class TableData a where
   htmlTable :: a -> HtmlTag
+  // Appending two tables glues the right one to the right of the left one.
+  // Appending tables only makes sense when they are compatible, and their
+  // header and column information matches the length of the rows, and all rows
+  // have the same length. The result has as many rows as the shorter one.
+  appendTable :: a a -> a
 
 // Convenience function for viewing table data directly.
 //

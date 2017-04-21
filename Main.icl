@@ -5,7 +5,7 @@ import TableData
 import iTasks.UI.Editor.Builtin
 import qualified Data.Map as M
 
-Start world = startEngine viewSharedStoreAsTable world
+Start world = startEngine main4 world
 
 simpleData =
   [ [ 10, 20, 30 ]
@@ -123,3 +123,47 @@ viewSharedStoreAsTable =
   viewSharedInformation () [ViewUsing (htmlTable o burgersToFancyTable) (htmlView 'M'.newMap)] burgers
   // Editing the table is not supported.
   -&&- updateSharedInformation () [] burgers
+
+
+
+
+
+
+
+// Demonstrate appending tables
+
+simpleData1 =
+  [ [ 10, 20, 30 ]
+  , [ 11, 21, 31 ]
+  , [ 12, 22, 32 ]
+  , [ 13, 23, 33 ]
+  ]
+simpleData2 =
+  [ [ 30, 40 ]
+  , [ 30, 40 ]
+  , [ 30, 40 ]
+  , [ 30, 40 ]
+  ]
+simpleData3 = appendTable simpleData1 simpleData2
+main3 = viewAsTable () simpleData3
+
+
+fancyData1 :: ([String], [Maybe String], [([Int], Maybe String)])
+fancyData1 =
+  ( ["A", "B"]
+  , [Nothing, Nothing]
+  , [ ([1, 2], Just "ruRedBg")
+    , ([2, 3], Nothing)
+    , ([3, 4], Just "whiteText")
+    ]
+  )
+fancyData2 =
+  ( ["C", "D"]
+  , [Nothing, Nothing]
+  , [ ([4, 5], Nothing)
+    , ([5, 6], Nothing)
+    , ([6, 7], Just "ruBlueBg") // blue background and white text are merged
+    , ([7, 8], Nothing) // This row is discarded
+    ]
+  )
+main4 = viewAsTable () (appendTable fancyData1 fancyData2)
