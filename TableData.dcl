@@ -6,6 +6,17 @@ import Text.HTML
 class TableData a where
   htmlTable :: a -> HtmlTag
 
+// Convenience function for viewing table data directly.
+//
+// If you need to transform your data to table data, do as follows.
+//
+//   viewInformation () [ViewUsing (htmlTable o myDataToTableData) (htmlView 'M'.newMap)] myData
+//     where myDataToTableData = ...
+//
+// Or, for shared data:
+//
+//   viewSharedInformation () [ViewUsing (htmlTable o myDataToTableData) (htmlView 'M'.newMap)] myShare
+//     where myDataToTableData = ...
 viewAsTable :: !d !m -> (Task m) | toPrompt d & TableData m & iTask m
 
 // A table without headers
