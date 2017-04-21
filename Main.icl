@@ -2,8 +2,10 @@ module Main
 
 import iTasks
 import TableData
+import iTasks.UI.Editor.Builtin
+import qualified Data.Map as M
 
-Start world = startEngine main world
+Start world = startEngine viewSharedStoreAsTable world
 
 simpleData =
   [ [ 10, 20, 30 ]
@@ -88,19 +90,21 @@ burgerData =
   , {Burger|bsn="2457260345737", address={Address|postcode="8439DC", huisnummer=65535} }
   ]
 
+burgersToTableData burgers =
+  ( ["BSN", "Postcode", "Huisnummer"]
+  , [ [bsn, postcode, toSingleLineText huisnummer ]
+    \\ {bsn, address={postcode, huisnummer}} <- burgers
+    ]
+  )
+
 main :: Task ()
 main = (viewAsTable "simple table" simpleData)
   -&&- (viewAsTable "table with headers" dataWithHeader)
-  -&&- (viewAsTable "data from records"
-    ( ["BSN", "Postcode", "Huisnummer"]
-    , [ [toSingleLineText bsn, toSingleLineText postcode, toSingleLineText huisnummer ]
-      \\ {bsn, address={postcode, huisnummer}} <- burgerData
-      ]
-    ))
+  -&&- (viewAsTable "data from records" (burgersToTableData burgerData))
   -&&- (viewAsTable "customizable rows and columns"
     ( ["BSN", "Postcode", "Huisnummer"]
     , [Just "smallColumn", Nothing, Just "huisnummerCol"]
-    , [ ( [toSingleLineText bsn, toSingleLineText postcode, toSingleLineText huisnummer]
+    , [ ( [bsn, postcode, toSingleLineText huisnummer]
         , if (huisnummer > 100 && huisnummer < 2000) (Just "ruBlueBg70") Nothing
         )
       \\ {bsn, address={postcode, huisnummer}} <- burgerData
@@ -108,3 +112,11 @@ main = (viewAsTable "simple table" simpleData)
     ))
   -&&- (viewAsTable "The Radboud Rainbow" dataWithClasses)
   >>| return ()
+
+
+burgers :: Shared [Burger]
+burgers = sharedStore "burgers" burgerData
+
+viewSharedStoreAsTable =
+  viewSharedInformation () [ViewUsing (htmlTable o burgersToTableData) (htmlView 'M'.newMap)] burgers
+  -&&- updateSharedInformation () [] burgers
