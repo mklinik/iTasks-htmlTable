@@ -1,9 +1,6 @@
 module Main
 
 import iTasks
-import Text.HTML
-import Data.Func
-
 import TableData
 
 Start world = startEngine main world
