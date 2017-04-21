@@ -1,0 +1,73 @@
+table.customTable
+  { width: 100%
+  ; border-collapse: collapse
+  ; background-color: white
+  }
+
+table.customTable td,
+table.customTable th
+  { border-bottom: 1px solid #cfcfcf
+  ; padding: 5px
+  }
+
+table.customTable th
+  { text-align: left
+  ; background-color: #cfcfcf
+  }
+
+.smallColumn
+  { width: 1%
+  }
+
+
+
+.whiteText
+  { color: white
+  }
+
+.blackText
+  { color: black
+  }
+
+
+
+/* http://www.ru.nl/publish/pages/596215/secundaire_kleuren.pdf */
+
+/* For colored background with black text use the 70% variants */
+/* For colored text with white background use the 35% variants */
+
+.ruDarkRedBg { background-color: #be311a }
+.ruDarkRedText { color: #be311a }
+
+.ruRedBg { background-color: #e3000b }
+.ruRedText { color: #e3000b }
+
+.ruDiepRedBg { background-color: #8f2011 }
+.ruDiepRedText { color: #8f2011 }
+
+.ruOrangeBg { background-color: #EC6500 }
+.ruOrangeText { color: #EC6500 }
+
+.ruDarkYellowBg { background-color: #FDC300 }
+.ruDarkYellowText { color: #FDC300 }
+
+.ruBlueBg { background-color: #008ACB }
+.ruBlueText { color: #008ACB }
+.ruBlueText35 { color: #005984 }
+.ruBlueBg70 { background-color: #4cacda }
+
+.ruPurpleBg { background-color: #832C87 }
+.ruPurpleText { color: #832C87 }
+.ruPurpleBg70 { background-color: #a76aaa }
+
+.ruGreenBg { background-color: #4AA943 }
+.ruGreenText { color: #4AA943 }
+.ruGreenText35 { color: #306e2b }
+.ruGreenBg35 { background-color: #306e2b }
+.ruGreenBg70 { background-color: #7fc27b }
+
+.ruPinkBg { background-color: #ED0074 }
+.ruPinkText { color: #ED0074 }
+.ruPinkText35 { color: #9a004b }
+.ruPinkBg35 { background-color: #9a004b }
+.ruPinkBg70 { background-color: #f24c9d }

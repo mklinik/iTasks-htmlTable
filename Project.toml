@@ -1,0 +1,95 @@
+[project]
+
+name = "Main"
+version = "0.1.0"
+authors = ["mkl"]
+
+sourcedir = "." # default: "src"
+modules = [
+    "Main",
+]
+otherModules = [
+    "Prelude"
+]
+
+libraries = [
+    "Dynamics",
+    "Generics",
+    "Platform",
+    "Platform/Deprecated/StdLib/",
+    "TCPIP",
+    "Sapl",
+    "GraphCopy",
+    "iTasks",
+]
+
+[executable]
+
+main = "Main" # default: "Main"
+output = "Main.exe" # default: name of package
+
+# Possible extensions #
+
+# [[bin]]
+#
+# name = "flows" # default: name of project
+# path = "TaskMain" # default: "Main"
+#
+# [[lib]]
+#
+# modules = [
+#     "Flow.List",
+#     "Flow.Tree",
+#     "Flow.Pretty",
+#     "Flow.Rewrite",
+#     "Flow.Task",
+#     "Flow.Examples.Simple",
+#     "Flow.Examples.EmergencyCall",
+# ]
+
+# Possible options #
+
+# Root = "." # was: ProjectRoot
+# Target = "iTasksTonic"
+# Exec = "{Project}/test.exe"
+# Paths = ["{Project}"] # was: Paths -> Path, Path, Path, ...
+# Precompile = ""
+# Postlink = ""
+#
+# [CodeGen]
+# CheckStacks = false
+# CheckIndexes = true
+#
+# [Application]
+# HeapSize = 209715200
+# StackSize = 5120000000
+# ExtraMemory = 8192
+# IntialHeapSize = 204800
+# HeapSizeMultiplier = 4096
+# ShowExecutionTime = false
+# ShowGC = false
+# ShowStackSize = false
+# MarkingCollector = false
+# DisableRTSFlags = false
+# StandardRuntimeEnv = true
+#
+# [Application.Profile]
+# Memory = false
+# MemoryMinimumHeapSize = 0
+# Time = false
+# Stack = false
+#
+# [Application.Output]
+# Output = "ShowConstructors"
+# Font = "Monaco"
+# FontSize = 9
+# WriteStdErr = false
+#
+# [Link]
+# LinkMethod = Static
+# GenerateRelocations = false
+# GenerateLinkMap = false
+# LinkResources = false
+# ResourceSource = ""
+# GenerateDLL = false
+# ExportedNames = ""
