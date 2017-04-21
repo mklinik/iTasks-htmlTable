@@ -119,4 +119,5 @@ burgers = sharedStore "burgers" burgerData
 
 viewSharedStoreAsTable =
   viewSharedInformation () [ViewUsing (htmlTable o burgersToTableData) (htmlView 'M'.newMap)] burgers
+  // Editing the table is not supported.
   -&&- updateSharedInformation () [] burgers
