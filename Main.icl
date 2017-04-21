@@ -90,9 +90,19 @@ burgerData =
   , {Burger|bsn="2457260345737", address={Address|postcode="8439DC", huisnummer=65535} }
   ]
 
-burgersToTableData burgers =
+burgersToTable burgers =
   ( ["BSN", "Postcode", "Huisnummer"]
   , [ [bsn, postcode, toSingleLineText huisnummer ]
+    \\ {bsn, address={postcode, huisnummer}} <- burgers
+    ]
+  )
+
+burgersToFancyTable burgers =
+  ( ["BSN", "Postcode", "Huisnummer"]
+  , [Just "smallColumn", Nothing, Just "huisnummerCol"]
+  , [ ( [bsn, postcode, toSingleLineText huisnummer]
+      , if (huisnummer > 100 && huisnummer < 2000) (Just "ruBlueBg70") Nothing
+      )
     \\ {bsn, address={postcode, huisnummer}} <- burgers
     ]
   )
@@ -100,16 +110,8 @@ burgersToTableData burgers =
 main :: Task ()
 main = (viewAsTable "simple table" simpleData)
   -&&- (viewAsTable "table with headers" dataWithHeader)
-  -&&- (viewAsTable "data from records" (burgersToTableData burgerData))
-  -&&- (viewAsTable "customizable rows and columns"
-    ( ["BSN", "Postcode", "Huisnummer"]
-    , [Just "smallColumn", Nothing, Just "huisnummerCol"]
-    , [ ( [bsn, postcode, toSingleLineText huisnummer]
-        , if (huisnummer > 100 && huisnummer < 2000) (Just "ruBlueBg70") Nothing
-        )
-      \\ {bsn, address={postcode, huisnummer}} <- burgerData
-      ]
-    ))
+  -&&- (viewAsTable "data from records" (burgersToTable burgerData))
+  -&&- (viewAsTable "customizable rows and columns" (burgersToFancyTable burgerData))
   -&&- (viewAsTable "The Radboud Rainbow" dataWithClasses)
   >>| return ()
 
@@ -118,6 +120,6 @@ burgers :: Shared [Burger]
 burgers = sharedStore "burgers" burgerData
 
 viewSharedStoreAsTable =
-  viewSharedInformation () [ViewUsing (htmlTable o burgersToTableData) (htmlView 'M'.newMap)] burgers
+  viewSharedInformation () [ViewUsing (htmlTable o burgersToFancyTable) (htmlView 'M'.newMap)] burgers
   // Editing the table is not supported.
   -&&- updateSharedInformation () [] burgers
