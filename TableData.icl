@@ -1,8 +1,6 @@
 implementation module TableData
 
 import TableData
-import iTasks.UI.Editor.Builtin
-import qualified Data.Map as M
 
 // A table without headers
 instance TableData [[a]] | iTask a where
@@ -75,4 +73,4 @@ instance TableData ([a], [Maybe String], [([b], Maybe String)]) | iTask a & iTas
      combineRowClasses (Just lClass) (Just rClass) = Just (lClass +++ " " +++ rClass)
 
 viewAsTable :: !d !m -> (Task m) | toPrompt d & TableData m & iTask m
-viewAsTable desc data = viewInformation desc [ViewUsing htmlTable (htmlView 'M'.newMap)] data
+viewAsTable desc data = viewInformation desc [ViewUsing htmlTable htmlView] data
